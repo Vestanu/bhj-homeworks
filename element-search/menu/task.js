@@ -1,29 +1,27 @@
-const element = document.getElementsByClassName("menu__link");
+let mainMenuItems = document.querySelectorAll("ul.menu_main>li");
+let subMenuOpen = 0;
 
-element.onclick = function() {
-    alert(element.textContent)
-    // let elem = index;
-    // if(elem.textContent == ) {
-    // elem.className = "menu menu_sub menu_active"
-    // }
-    if (element.textContent == "О компании") {
-        menuList[0].className = "menu menu_sub menu_active";
-    } else if (element.textContent == "Услуги") {
-        menuList[1].className == "menu menu_sub menu_active"
+function openSubmenu() {
+    let subMenuElement = this.getElementsByClassName("menu menu_sub");
+
+    if (subMenuElement) {
+        if (subMenuElement[0].className == "menu menu_sub menu_active") {
+            subMenuElement[0].className = "menu menu_sub";
+            subMenuOpen = 0;
+            return false;
+        }
+
+        if (subMenuElement[0].className == "menu menu_sub") {
+            if (subMenuOpen != 0) {
+                subMenuOpen.className = "menu menu_sub";
+            }
+            subMenuElement[0].className = "menu menu_sub menu_active";
+            subMenuOpen = subMenuElement[0];
+            return false;
+        }
     }
-    return false;
 }
 
-const menuList = document.getElementsByClassName("menu_sub");
-console.log(menuList)
-
-// let arr = Array.from(menuList);
-// console.log(arr[0])
-
-// for (let i = 0; i < menuList.length; i++) {
-//     element.onclick(menuList[i]);
-// }
-
-// // function checkMenu (index) {
-
-// // }
+for (const itms of mainMenuItems) {
+    itms.onclick = openSubmenu;
+}
