@@ -32,12 +32,14 @@ class Game {
       if (arr[index].textContent == event.key.toLocaleLowerCase()) {
         index += 1;
         that.success();
-      } else if (index == arr.length) {
+        if (index == (arr.length)) {
         index = 0;
+        }
       } else {
         that.fail();
       }
     }
+
   }
 
   success() {
