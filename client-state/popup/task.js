@@ -1,19 +1,24 @@
-
 let subscribeElement = document.getElementById("subscribe-modal");
 
-let showSubscribe = function() {
-    if (document.cookie.replace(/(?:(?:^|.*;\s*)closeModal\s*\=\s*([^;]*).*$)|^.*$/, "$1" ) !== true) {
-      
-      subscribeElement.classList.add("modal_active");
+let closeModal = document.querySelector(".modal__close");
+
+
+
+  const getCookieName = (name) => {
+    const value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length === 2) {
+        return parts.pop().split(";").shift(); 
     }
-      subscribeElement.querySelector(".modal__close").addEventListener("click", function(e) {
-        this.closest(".modal").classList.remove("modal_active");
-        // alert("Do something here!");
-        document.cookie = "closeModal = true; expires=Fri, 24 Dec 2020 23:59:59 GMT";
-        console.log(document.cookie)
-      });
-  
-    
-  };
-  
-  showSubscribe();
+};
+
+window.addEventListener("load", () => {
+  if (!getCookieName("closedModal")) {
+      subscribeElement.classList.add("modal_active");
+  }
+});
+
+closeModal.addEventListener("click", () => {
+  subscribeElement.classList.remove("modal_active");
+  document.cookie = "closedModal=true";
+});
